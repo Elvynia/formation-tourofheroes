@@ -1,0 +1,15 @@
+div.hero-list {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+div.hero {
+    font-size: 1.2rem;
+    padding: 0 10px;
+    border: 2px solid darkgoldenrod;
+}
+
+div.hero h4 {
+    font-size: 1.6rem;
+    font-weight: bold;
+}
