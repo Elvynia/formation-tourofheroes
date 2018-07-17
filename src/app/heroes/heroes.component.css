@@ -13,3 +13,10 @@ div.hero h4 {
     font-size: 1.6rem;
     font-weight: bold;
 }
+
+div.hero h4 img {
+    width: 24px;
+    height: 24px;
+    margin-top: -7px;
+    cursor: pointer;
+}

@@ -19,4 +19,11 @@ export class HeroesComponent implements OnInit {
 		this.heroes.push(new Hero('Tingle'));
 	}
 
+	deleteHero(heroId: number) {
+		let index = this.heroes.findIndex((hero) => hero.id === heroId);
+		if (index >= 0) {
+			this.heroes.splice(index, 1);
+		}
+	}
+
 }
