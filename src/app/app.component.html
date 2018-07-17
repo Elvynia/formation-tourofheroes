@@ -8,13 +8,15 @@
 			<label class="mr-2" for="name">Nom</label>
 			<input id="name" name="name" #nameCtrl="ngModel"
 				class="form-control mr-2" [(ngModel)]="newHeroName" required />
-			<span class="error"
-				*ngIf="nameCtrl.invalid && nameCtrl.dirty">
-				Nom du héro obligatoire
-			</span>
 			<button class="btn btn-primary"
 				[disabled]="heroForm.invalid">Ajouter</button>
+			<div class="alert alert-danger alert-dismissible fade show"
+				[ngStyle]="{'opacity': nameCtrl.invalid && nameCtrl.dirty ? 1 : 0}">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				Nom du héro obligatoire
+			</div>
 		</form>
-		Formulaire valide ? {{ heroForm.valid }}
 	</div>
 </div>
