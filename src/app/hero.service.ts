@@ -1,15 +1,20 @@
 import { Injectable } from '@angular/core';
 import { Hero } from './hero';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, from } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { environment as ENV } from '../environments/environment';
+import { switchMap, map, toArray } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HeroService {
 	private subject: BehaviorSubject<Array<Hero>>;
+	private mockUrl: string;
 
-	constructor() {
+	constructor(private httpClient: HttpClient) {
 		this.subject = new BehaviorSubject(new Array());
+		this.mockUrl = ENV.apiUrl + '/assets/heroes.json';
 	}
 
 	get heroes(): Observable<Array<Hero>> {
@@ -17,39 +22,10 @@ export class HeroService {
 	}
 
 	loadMock() {
-		let mock: Array<Hero> = [
-			{
-				id: 0,
-				name: 'Link'
-			},{
-				id: 1,
-				name: 'Linkle'
-			},{
-				id: 2,
-				name: 'Zelda'
-			},{
-				id: 3,
-				name: 'Impa'
-			},{
-				id: 4,
-				name: 'Lana'
-			},{
-				id: 5,
-				name: 'Cya'
-			},{
-				id: 6,
-				name: 'Ruto'
-			},{
-				id: 7,
-				name: 'Machaon'
-			},{
-				id: 8,
-				name: 'Midona'
-			},{
-				id: 9,
-				name: 'Darunia'
-			}
-		];
-		this.subject.next(mock);
+		this.httpClient.get<Array<Hero>>(this.mockUrl).pipe(
+			switchMap((array) => from(array)),
+			map((obj) => Object.assign(new Hero(), obj)),
+			toArray()
+		).subscribe((heroes) => this.subject.next(heroes));
 	}
 }
